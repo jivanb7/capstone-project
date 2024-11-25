@@ -14,6 +14,13 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    posts = db.relationship('Post', backref='author', lazy=True, cascade="all, delete-orphan")
+    comments = db.relationship('Comment', backref='author', lazy=True, cascade="all, delete-orphan")
+    likes = db.relationship('Like', backref='user', lazy=True, cascade="all, delete-orphan")
+    followers = db.relationship('Follow', foreign_keys='Follow.followed_id', backref='followed', lazy=True, cascade="all, delete-orphan")
+    following = db.relationship('Follow', foreign_keys='Follow.follower_id', backref='follower', lazy=True, cascade="all, delete-orphan")
+    shared_posts = db.relationship('SharedPost', backref='recipient', lazy=True, cascade="all, delete-orphan")
+
     @property
     def password(self):
         return self.hashed_password
