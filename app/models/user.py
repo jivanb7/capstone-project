@@ -17,9 +17,12 @@ class User(db.Model, UserMixin):
     posts = db.relationship('Post', backref='author', lazy=True, cascade="all, delete-orphan")
     comments = db.relationship('Comment', backref='author', lazy=True, cascade="all, delete-orphan")
     likes = db.relationship('Like', backref='user', lazy=True, cascade="all, delete-orphan")
+
     followers = db.relationship('Follow', foreign_keys='Follow.followed_id', backref='followed', lazy=True, cascade="all, delete-orphan")
     following = db.relationship('Follow', foreign_keys='Follow.follower_id', backref='follower', lazy=True, cascade="all, delete-orphan")
-    shared_posts = db.relationship('SharedPost', backref='recipient', lazy=True, cascade="all, delete-orphan")
+
+    shared_posts_sent = db.relationship('SharedPost', foreign_keys='SharedPost.sender_id', lazy=True, cascade="all, delete-orphan")
+    shared_posts_received = db.relationship('SharedPost', foreign_keys='SharedPost.recipient_id', lazy=True, cascade="all, delete-orphan")
 
     @property
     def password(self):

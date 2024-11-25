@@ -8,13 +8,13 @@ class Like(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=True)
-    comment_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('comments.id')), nullable=True)
+    post_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
+
+    post = db.relationship('Post', backref='liked_likes')
 
     def to_dict(self):
         return {
             'id': self.id,
             'user_id': self.user_id,
             'post_id': self.post_id,
-            'comment_id': self.comment_id
         }

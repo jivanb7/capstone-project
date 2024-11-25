@@ -11,12 +11,14 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     comments = db.relationship('Comment', backref='post', lazy=True, cascade="all, delete-orphan")
-    likes = db.relationship('Like', backref='post', lazy=True, cascade="all, delete-orphan")
-    shared_posts = db.relationship('SharedPost', backref='post', lazy=True, cascade="all, delete-orphan")
+    likes = db.relationship('Like', backref='liked_post', lazy=True, cascade="all, delete-orphan")
+    shared_posts = db.relationship('SharedPost', backref='shared_in_post', lazy=True, cascade="all, delete-orphan")
+    images = db.relationship('PostImage', backref='post', lazy=True, cascade="all, delete-orphan") 
 
     def to_dict(self):
         return {
             'id': self.id,
             'content': self.content,
-            'user_id': self.user_id
+            'user_id': self.user_id,
+            'images': [image.to_dict() for image in self.images]
         }
