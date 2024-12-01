@@ -4,22 +4,31 @@ from sqlalchemy.sql import text
 
 # Adds a demo user, you can add other users here if you want
 def seed_users():
-    demo = User(
-        username='Demo', email='demo@aa.io', password='password')
-    marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
-    bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
-    john = User(
-        username='john', email='john@aa.io', password='password')
-    jane = User(
-        username='jane', email='jane@aa.io', password='password')
+    users_data = [
+        {'username': 'Demo', 'email': 'demo@aa.io', 'password': 'password'},
+        {'username': 'marnie', 'email': 'marnie@aa.io', 'password': 'password'},
+        {'username': 'bobbie', 'email': 'bobbie@aa.io', 'password': 'password'},
+        {'username': 'john', 'email': 'john@aa.io', 'password': 'password'},
+        {'username': 'jane', 'email': 'jane@aa.io', 'password': 'password'},
+        {'username': 'alice', 'email': 'alice@aa.io', 'password': 'password'},
+        {'username': 'charlie', 'email': 'charlie@aa.io', 'password': 'password'},
+        {'username': 'david', 'email': 'david@aa.io', 'password': 'password'},
+        {'username': 'ellen', 'email': 'ellen@aa.io', 'password': 'password'},
+        {'username': 'frank', 'email': 'frank@aa.io', 'password': 'password'},
+        {'username': 'grace', 'email': 'grace@aa.io', 'password': 'password'},
+        {'username': 'hannah', 'email': 'hannah@aa.io', 'password': 'password'},
+        {'username': 'ivan', 'email': 'ivan@aa.io', 'password': 'password'},
+        {'username': 'jack', 'email': 'jack@aa.io', 'password': 'password'},
+        {'username': 'katie', 'email': 'katie@aa.io', 'password': 'password'},
+        {'username': 'lily', 'email': 'lily@aa.io', 'password': 'password'},
+        {'username': 'mike', 'email': 'mike@aa.io', 'password': 'password'},
+        {'username': 'nina', 'email': 'nina@aa.io', 'password': 'password'},
+        {'username': 'oliver', 'email': 'oliver@aa.io', 'password': 'password'},
+        {'username': 'paul', 'email': 'paul@aa.io', 'password': 'password'}
+    ]
+    users = [User(**user_data) for user_data in users_data]
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
-    db.session.add(john)
-    db.session.add(jane)
+    db.session.add_all(users)
     db.session.commit()
 
 

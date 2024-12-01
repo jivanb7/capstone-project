@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 94d21771e55a
+Revision ID: ba0f53cf1b8f
 Revises: 
-Create Date: 2024-11-25 12:34:41.292877
+Create Date: 2024-11-30 21:32:29.399211
 
 """
 from alembic import op
@@ -13,7 +13,7 @@ environment = os.getenv("FLASK_ENV")
 SCHEMA = os.environ.get("SCHEMA")
 
 # revision identifiers, used by Alembic.
-revision = '94d21771e55a'
+revision = 'ba0f53cf1b8f'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -33,7 +33,7 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE users SET SCHEMA {SCHEMA};")
-
+    
     op.create_table('follows',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('follower_id', sa.Integer(), nullable=False),
@@ -81,7 +81,7 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE likes SET SCHEMA {SCHEMA};")
-
+    
     op.create_table('post_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('post_id', sa.Integer(), nullable=False),
@@ -107,6 +107,7 @@ def upgrade():
 
     if environment == "production":
         op.execute(f"ALTER TABLE shared_posts SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###
 
 
