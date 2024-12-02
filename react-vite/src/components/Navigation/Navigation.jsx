@@ -4,7 +4,7 @@ import "./Navigation.css";
 
 function Navigation() {
   return (
-    <div className="Navbar" style={{display: "flex", justifyContent: "space-between", alignItems: "center", gap: "20px", width: "100%", boxSizing: "border-box", maxWidth: "1200px", padding: "10px 350px", margin: "0 auto",}}>
+    <div className="Navbar" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "20px", width: "100%", boxSizing: "border-box", maxWidth: "1200px", padding: "10px 350px", margin: "0 auto",}}>
       <div>
         <NavLink to="/">
         <img 

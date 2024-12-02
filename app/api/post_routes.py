@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from app.models import Post, db
+from app.models import Post, db, PostImage
 from flask_login import current_user, login_required
 from sqlalchemy.orm import joinedload
 
@@ -37,20 +37,6 @@ def get_post_details(post_id):
     """
     Retrieves details for a single post, including its comments and images.
     """
-    # post = Post.query.options(
-    #     joinedload(Post.comments),
-    #     joinedload(Post.images)
-    # ).get(post_id)
-
-    # if post is None:
-    #     return {'error': 'Post not found'}, 404 
-    
-    # return jsonify({
-    #     'post': post.to_dict(),
-    #     'comments': [comment.to_dict() for comment in post.comments],
-    #     'images': [image.to_dict() for image in post.images]
-    # }), 200
-
     post = Post.query.options(
         joinedload(Post.comments),
         joinedload(Post.images)
@@ -83,20 +69,36 @@ def create_post():
     """
     Creates a new post for the authenticated user.
     """
-    data = request.get_json()
-    content = data.get('content')
+    try:
+        data = request.get_json()
+        content = data.get('content')
+        url = data.get('url')
 
-    if not content or len(content.strip()) == 0:
-        return {'error': 'Content is required and cannot be empty.'}, 400
+        if not content or len(content.strip()) == 0:
+            return {'error': 'Content is required and cannot be empty.'}, 400
 
-    new_post = Post(
-        content=content,
-        user_id=current_user.id
-    )
-    db.session.add(new_post)
-    db.session.commit()
+        if not url:
+            return {'error': 'Preview image is required.'}, 400
 
-    return jsonify(new_post.to_dict()), 201
+        new_post = Post(
+            content=content,
+            user_id=current_user.id
+        )
+        db.session.add(new_post)
+        db.session.commit()
+
+        post_image = PostImage(
+            post_id=new_post.id,
+            url=url,  
+            preview_image=True 
+        )
+        db.session.add(post_image)
+        db.session.commit()
+
+        return jsonify(new_post.to_dict()), 201
+    except Exception as e:
+        print(f"Error: {e}")
+        return {'error': 'An error occurred while creating the post.'}, 500
 
 @post_routes.route('/<int:post_id>', methods=['PUT'])
 @login_required

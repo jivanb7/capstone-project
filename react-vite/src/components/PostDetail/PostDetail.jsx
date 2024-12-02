@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { fetchSinglePost } from '../../redux/postReducer';
+import { addComment } from '../../redux/commentReducer';
+import { FaComment } from 'react-icons/fa'; 
 
 const PostDetail = () => {
   const { postId } = useParams();
@@ -9,6 +11,7 @@ const PostDetail = () => {
   const post = useSelector((state) => state.posts.singlePost);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [comment, setComment] = useState("");
 
   useEffect(() => {
     dispatch(fetchSinglePost(postId));
@@ -39,6 +42,16 @@ const PostDetail = () => {
 
   const currentImage = post.images?.[currentImageIndex];
   const hasMultipleImages = post.images?.length > 1;
+
+  const handleCommentSubmit = async (e) => {
+    e.preventDefault();
+    if (comment.trim()) {
+      const newComment = await dispatch(addComment(postId, comment));
+      if (newComment) {
+        setComment(""); 
+      }
+    }
+  };
 
   return (
     <div
@@ -108,6 +121,36 @@ const PostDetail = () => {
               )}
             </div>
           )}
+          <div style={{ marginTop: "20px", textAlign: "center" }}>
+            <form onSubmit={handleCommentSubmit}>
+              <input
+                type="text"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                placeholder="Add a comment..."
+                style={{
+                  width: "70%",
+                  padding: "10px",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
+                }}
+              />
+              <button
+                type="submit"
+                style={{
+                  backgroundColor: "#4CAF50",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                }}
+              >
+                <FaComment style={{ marginRight: "8px" }} />
+                Comment
+              </button>
+            </form>
+          </div>
           <div style={{ marginTop: "20px" }}>
             <div style={{ display: "flex", justifyContent: "center",}}>
               <div style={{ marginRight: "5px"}}> <strong> @{post.post.username}:</strong></div>
@@ -117,11 +160,11 @@ const PostDetail = () => {
 
           <div>
             {post.comments?.length === 0 ? (
-              <p>No comments yet.</p>
+              <p style={{textAlign: "center"}}>No comments yet.</p>
             ) : (
               post.comments.map((comment) => (
                 <div key={comment.id}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div style={{ display: "flex", justifyContent: "center", }}>
                     <div style={{ marginRight: "5px" }}>@{comment.username}:</div>
                     <div>{comment.description}</div>
                   </div>

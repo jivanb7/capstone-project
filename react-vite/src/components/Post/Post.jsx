@@ -46,12 +46,12 @@ const Post = () => {
                   <img
                     src={previewImage.url}
                     alt={`Preview for ${post.content}`}
-                    style={{ maxWidth: "100%", height: "600px", borderRadius: "30px" }}
+                    style={{ minWidth: "599px", maxWidth: "600px", maxHeight: "600px", minHeight: "599px", borderRadius: "30px" }}
                   />
                 )}
                 <div style={{ display: "flex", justifyContent: "flex-start", width: "480px", marginTop: "10px" }}>
-                  <div style={{ marginRight: "5px" }}>@{post.username}: </div>
-                  <div>{post.content}</div>
+                  <div style={{ marginRight: "5px" }}> <strong> @{post.username}: </strong></div>
+                  <div> <strong> {post.content} </strong> </div>
                 </div>
               </Link>
             </div>

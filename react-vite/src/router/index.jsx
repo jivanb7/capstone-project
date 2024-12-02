@@ -4,6 +4,8 @@ import SignupFormPage from '../components/SignupFormPage';
 import Post from '../components/Post/Post'
 import Layout from './Layout';
 import PostDetail from '../components/PostDetail/PostDetail';
+import Profile from "../components/Profile/Profile"
+import UserCommentsPage from '../components/UserCommentsPage/UserCommentsPage';
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +26,14 @@ export const router = createBrowserRouter([
       {
         path: "post/:postId",
         element: <PostDetail />
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+      {
+        path: "comments/current",
+        element: <UserCommentsPage />
       },
     ],
   },
