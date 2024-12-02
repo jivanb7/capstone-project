@@ -41,8 +41,8 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserCircle />
+      <button onClick={toggleMenu} style={{all: "unset", cursor: "pointer"}} >
+        <FaUserCircle size={40}/>
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
@@ -60,11 +60,13 @@ function ProfileButton() {
                 itemText="Log In"
                 onItemClick={closeMenu}
                 modalComponent={<LoginFormModal />}
+                style={{borderRadius: "5px", backgroundColor: "black", color: "white", cursor: "pointer", textAlign: "center", height: "20px", width: "60px"}}
               />
               <OpenModalMenuItem
                 itemText="Sign Up"
                 onItemClick={closeMenu}
                 modalComponent={<SignupFormModal />}
+                style={{borderRadius: "5px", backgroundColor: "black", color: "white", cursor: "pointer", textAlign: "center", height: "20px", width: "60px", marginTop: "5px"}}
               />
             </>
           )}
