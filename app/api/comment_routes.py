@@ -19,9 +19,20 @@ def get_comments_by_post(post_id):
     """
     Retrieves all comments for a specific post by post ID.
     """
-    comments = Comment.query.filter(Comment.post_id == post_id).all()
+    # comments = Comment.query.filter(Comment.post_id == post_id).all()
 
-    return jsonify([comment.to_dict() for comment in comments]), 200
+    # return jsonify([comment.to_dict() for comment in comments]), 200
+    comments = Comment.query.options(joinedload(Comment.author)).filter(Comment.post_id == post_id).all()
+
+    response = [
+        {
+            **comment.to_dict(),
+            'username': comment.author.username
+        }
+        for comment in comments
+    ]
+
+    return jsonify(response)
 
 @comment_routes.route('/<int:post_id>', methods=['POST'])
 @login_required
