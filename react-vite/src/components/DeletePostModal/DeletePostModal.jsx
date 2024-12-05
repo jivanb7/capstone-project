@@ -19,13 +19,13 @@ const DeletePostModal = ({ postId }) => {
       <div style={{ display: "flex", justifyContent: "space-around", height: "40px", paddingBottom: "10px" }}>
         <button
           onClick={handleDelete}
-          style={{ backgroundColor: "red", color: "white", padding: "10px", borderRadius: "5px", width: "100px" }}
+          style={{ backgroundColor: "red", color: "white", padding: "10px", borderRadius: "5px", width: "100px", cursor: "pointer" }}
         >
           Delete
         </button>
         <button
           onClick={closeModal}
-          style={{ backgroundColor: "gray", color: "white", padding: "10px", borderRadius: "5px", width: "100px" }}
+          style={{ backgroundColor: "gray", color: "white", padding: "10px", borderRadius: "5px", width: "100px", cursor: "pointer" }}
         >
           Cancel
         </button>

@@ -10,6 +10,9 @@ const UserCommentsPage = () => {
   const userComments = useSelector((state) => state.comments.userComments);
 
   useEffect(() => {
+  }, [userComments]);
+
+  useEffect(() => {
     dispatch(fetchUserComments());
   }, [dispatch]);
 
@@ -20,6 +23,8 @@ const UserCommentsPage = () => {
       {userComments.length === 0 ? (
         <p>You have not made any comments yet.</p>
       ) : (
+        <div style={{display: "grid", gridTemplateColumns: "1fr 3fr 1fr"}}>
+        <div className="Left-Section" style={{width: "400px"}}></div>
         <div
           style={{
             display: "flex",
@@ -28,9 +33,9 @@ const UserCommentsPage = () => {
           }}
         >
           {userComments.map((comment) => (
-            <div key={comment.id} style={{ marginBottom: "15px", width: "100%" }}>
-              <p><strong>Comment:</strong> {comment.description}</p>
-
+            <div key={comment.id} style={{ marginBottom: "15px", width: "100%", display: "flex", flexDirection: "column", alignItems: "center" }}>
+              <p style={{textAlign: "center"}}><strong>Comment:</strong> {comment.description}</p>
+              <div>
               <OpenModalButton
                 buttonText="Update Comment"
                 modalComponent={<UpdateCommentFormModal commentId={comment.id} currentDescription={comment.description} />}
@@ -40,6 +45,7 @@ const UserCommentsPage = () => {
                   padding: "10px",
                   borderRadius: "5px",
                   marginBottom: "10px",
+                  cursor: "pointer"
                 }}
               />
 
@@ -51,11 +57,15 @@ const UserCommentsPage = () => {
                   color: "white",
                   padding: "10px",
                   borderRadius: "5px",
-                  marginLeft: "5px"
+                  marginLeft: "5px",
+                  cursor: "pointer"
                 }}
               />
+              </div>
             </div>
           ))}
+        </div>
+        <div className="Right-Section" style={{width: "400px"}}></div>
         </div>
       )}
     </div>

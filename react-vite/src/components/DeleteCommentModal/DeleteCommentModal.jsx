@@ -7,10 +7,8 @@ const DeleteCommentModal = ({ commentId }) => {
   const { closeModal } = useModal();
 
   const handleDelete = async () => {
-    const result = await dispatch(deleteComment(commentId));
-    if (result?.message) {
-      closeModal(); 
-    }
+    await dispatch(deleteComment(commentId));
+    closeModal(); 
   };
 
   return (
@@ -25,6 +23,7 @@ const DeleteCommentModal = ({ commentId }) => {
             padding: "10px",
             borderRadius: "5px",
             width: "100px",
+            cursor: "pointer"
           }}
         >
           Delete
@@ -37,6 +36,7 @@ const DeleteCommentModal = ({ commentId }) => {
             padding: "10px",
             borderRadius: "5px",
             width: "100px",
+            cursor: "pointer"
           }}
         >
           Cancel

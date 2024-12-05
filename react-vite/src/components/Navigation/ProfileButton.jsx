@@ -49,20 +49,32 @@ function ProfileButton() {
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
             <>
+            <div style={{display: "flex", justifyContent: "space-between", width: "350px"}}>
               <div>{user.username}</div>
               <div>{user.email}</div>
               <div>
                 <Link to="/comments/current" style={{ textDecoration: "none", color: "inherit" }}>
                   <button style={{
-                    cursor: "pointer"
+                    cursor: "pointer",
+                    border: "1px solid black",
+                    backgroundColor: "black",
+                    color: "white",
+                    borderRadius: "5px"
                   }}>
                     Manage Comments
                   </button>
                 </Link>
               </div>
               <div>
-                <button onClick={logout}>Log Out</button>
+                <button onClick={logout} style={{
+                    cursor: "pointer",
+                    border: "1px solid black",
+                    backgroundColor: "black",
+                    color: "white",
+                    borderRadius: "5px"
+                  }}>Log Out</button>
               </div>
+            </div>
             </>
           ) : (
             <>

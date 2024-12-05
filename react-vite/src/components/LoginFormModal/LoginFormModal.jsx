@@ -14,7 +14,6 @@ function LoginFormModal() {
     e.preventDefault();
     const errors = {};
 
-    // Validation checks
     if (!email) {
       errors.email = "Email is required.";
     }
@@ -24,11 +23,10 @@ function LoginFormModal() {
     }
 
     if (Object.keys(errors).length > 0) {
-      setErrors(errors); // If errors exist, set them
+      setErrors(errors); 
       return;
     }
 
-    // If no validation errors, dispatch login
     const serverResponse = await dispatch(
       thunkLogin({
         email,
@@ -37,24 +35,22 @@ function LoginFormModal() {
     );
 
     if (serverResponse) {
-      setErrors(serverResponse); // If the server returns errors, set them
-    } else {
-      closeModal(); // Close modal on success
+      setErrors(serverResponse);
+      closeModal(); 
     }
   };
 
-  // Handle demo login for guest user
   const handleDemoLogin = async () => {
     const demoUser = {
-      email: "demo@aa.io",
+      email: "jane@aa.io",
       password: "password",
     };
     const serverResponse = await dispatch(thunkLogin(demoUser));
 
     if (serverResponse) {
-      setErrors(serverResponse); // If the server returns errors, set them
+      setErrors(serverResponse); 
     } else {
-      closeModal(); // Close modal on success
+      closeModal(); 
     }
   };
 

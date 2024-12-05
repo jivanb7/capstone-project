@@ -27,7 +27,7 @@ const Profile = () => {
           <OpenModalButton
             buttonText="Create a Post"
             modalComponent={<PostForm />}
-            style={{background: "green", color: "white", borderRadius: "5px", height: "35px"}}
+            style={{background: "green", color: "white", borderRadius: "5px", height: "35px", cursor: "pointer"}}
           />
         </div>
       )}

@@ -74,7 +74,7 @@ const PostFormModal = () => {
           style={{width: "400px", marginTop: "5px"}}
         />
 
-        <button style={{background: "blue", color: "white", height: "30px", width: "110px", marginTop: "10px"}} type="submit">Create Post</button>
+        <button style={{background: "blue", color: "white", height: "30px", width: "110px", marginTop: "10px", cursor: "pointer"}} type="submit">Create Post</button>
       </form>
     </div>
   );

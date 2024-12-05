@@ -5,7 +5,7 @@ export default function BottomNavigation() {
   return (
     <div
       style={{
-        position: "sticky",
+        position: "fixed",
         bottom: 0,
         left: 0,
         width: "100%",
@@ -15,7 +15,6 @@ export default function BottomNavigation() {
         alignItems: "center",
         padding: "10px 0",
         boxShadow: "0 -1px 5px rgba(0, 0, 0, 0.1)",
-        zIndex: 1000,
       }}
     >
       <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>

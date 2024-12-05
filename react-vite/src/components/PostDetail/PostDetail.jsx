@@ -9,9 +9,11 @@ const PostDetail = () => {
   const { postId } = useParams();
   const dispatch = useDispatch();
   const post = useSelector((state) => state.posts.singlePost);
+  const user = useSelector((state) => state.session?.user || null);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [comment, setComment] = useState("");
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     dispatch(fetchSinglePost(postId));
@@ -23,6 +25,12 @@ const PostDetail = () => {
       setCurrentImageIndex(previewIndex >= 0 ? previewIndex : 0);
     }
   }, [post]);
+
+  useEffect(() => {
+    if (user) {
+      setError(null); 
+    }
+  }, [user]);
 
   if (!post) {
     return <div>Loading...</div>;
@@ -45,11 +53,20 @@ const PostDetail = () => {
 
   const handleCommentSubmit = async (e) => {
     e.preventDefault();
+
+    if (!user) {
+      setError("To leave a comment, Log-In or Sign Up.");
+      return;
+    }
+
     if (comment.trim()) {
       const newComment = await dispatch(addComment(postId, comment));
+      console.log("Submitting comment:", { postId, comment });
       if (newComment) {
-        setComment(""); 
+        setComment("");
+        setError(null);
       }
+      dispatch(fetchSinglePost(postId));
     }
   };
 
@@ -61,6 +78,7 @@ const PostDetail = () => {
         gridTemplateColumns: "1fr 3fr 1fr",
         gap: "20px",
         padding: "20px",
+        marginBottom: "45px"
       }}
     >
       <div className="follow"></div>
@@ -122,6 +140,7 @@ const PostDetail = () => {
             </div>
           )}
           <div style={{ marginTop: "20px", textAlign: "center" }}>
+            {error && <p style={{ color: "red" }}>{error}</p>}  {/* Show error message */}
             <form onSubmit={handleCommentSubmit}>
               <input
                 type="text"
