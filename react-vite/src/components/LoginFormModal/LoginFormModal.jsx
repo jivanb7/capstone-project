@@ -34,11 +34,12 @@ function LoginFormModal() {
       })
     );
 
-    if (serverResponse) {
-      setErrors(serverResponse);
-      closeModal(); 
-    }
-  };
+  if (serverResponse) {
+    setErrors(serverResponse); 
+  } else {
+    closeModal();
+  }
+};
 
   const handleDemoLogin = async () => {
     const demoUser = {
