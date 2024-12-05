@@ -140,7 +140,7 @@ const PostDetail = () => {
             </div>
           )}
           <div style={{ marginTop: "20px", textAlign: "center" }}>
-            {error && <p style={{ color: "red" }}>{error}</p>}  {/* Show error message */}
+            {error && <p style={{ color: "red" }}>{error}</p>} 
             <form onSubmit={handleCommentSubmit}>
               <input
                 type="text"
@@ -153,6 +153,7 @@ const PostDetail = () => {
                   borderRadius: "5px",
                   border: "1px solid #ccc",
                 }}
+                required
               />
               <button
                 type="submit"
